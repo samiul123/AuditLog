@@ -1,26 +1,16 @@
 import React, {Suspense} from "react";
-import {Route, Switch} from "react-router-dom";
+import {Route, Switch, Redirect} from "react-router-dom";
 import appRoutes from "../../config/appRoutes";
+import Content from "./Content";
 
 const Layout = () => {
-    return (
-        <Suspense fallback={<div>Loading...</div>}>
-            <Switch>
-                {
-                    appRoutes.map((route, idx) => {
-                        return (
-                            <Route
-                                key={idx}
-                                path={route.path}
-                                name={route.name}
-                                component={route.component}
-                            />
-                        )
-                    })
-                }
-            </Switch>
-        </Suspense>
+    // if (!!localStorage.getItem("username") === false) {
+    //     window.location.href="/login"
+    //     return;
+    // }
 
+    return (
+        <Content/>
     )
 }
 
