@@ -1,19 +1,18 @@
+import React, {Suspense} from "react";
 import './App.css';
-import Login from "./component/login/Login";
-import Layout from "./component/common/Layout";
-import {BrowserRouter, HashRouter} from "react-router-dom";
+import {BrowserRouter, Route} from "react-router-dom";
 
 function App() {
-  return (
-    // <div className="App">
-    //   <header className="App-header">
-    //     <Login/>
-    //   </header>
-    // </div>
-      <BrowserRouter>
-        <Layout/>
-      </BrowserRouter>
-  );
+    const Login = React.lazy(() => import("./component/login/Login"))
+    const Layout = React.lazy(() => import("./component/common/Layout"))
+    return (
+        <BrowserRouter>
+            <Suspense fallback={<div>Loading...</div>}>
+                <Route path='/login' name='Login' component={Login}/>
+                <Route path='/' component={Layout}/>
+            </Suspense>
+        </BrowserRouter>
+    );
 }
 
 export default App;
