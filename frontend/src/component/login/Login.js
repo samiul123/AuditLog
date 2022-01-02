@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import './Login.css'
+import {Box, Button, Container, TextField} from "@mui/material";
 
 const Login = (props) => {
     const [userName, setUserName] = useState("");
@@ -12,18 +12,30 @@ const Login = (props) => {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <label>
-                Username
-                <input placeholder="Username"
-                       name="username"
-                       type="text"
-                       value={userName}
-                       onChange={handleChange}
+        <Container component="main" maxWidth="xs">
+            <Box component="form" onSubmit={handleSubmit} sx={{mt: 1}}>
+                <TextField
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="username"
+                    label="Username"
+                    name="username"
+                    autoComplete="username"
+                    autoFocus
+                    value={userName}
+                    onChange={handleChange}
                 />
-            </label>
-            <input type="submit" value="Submit"/>
-        </form>
+            </Box>
+            <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{mt: 3, mb: 2}}
+            >
+                Sign In
+            </Button>
+        </Container>
     )
 }
 
