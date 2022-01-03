@@ -7,7 +7,7 @@ jobs:
     steps:
       - run: |
           pwd
-          ls
+          ll
           
       - checkout
       - run:
