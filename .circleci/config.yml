@@ -5,6 +5,8 @@ jobs:
     docker:
       - image: cimg/node:16.13.1
     steps:
+      - run:
+          command: pwd
       - checkout
       - run:
           name: Update Yarn
