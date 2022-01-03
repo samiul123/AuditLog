@@ -6,7 +6,7 @@ jobs:
       - image: cimg/node:16.13.1
     steps:
       - run:
-          command: pwd
+          command: pwd && ls
       - checkout
       - run:
           name: Update Yarn
