@@ -10,6 +10,9 @@ jobs:
           ls -a
           
       - checkout
+      - run: |
+          pwd
+          ls -a
       - run:
           name: Update Yarn
           command: "sudo npm install -g --force yarn"
