@@ -1,24 +1,57 @@
+# Initial CI
+# version: 2.1
+# jobs:
+#   build:
+#     working_directory: ~/auditLog/frontend
+#     docker:
+#       - image: cimg/node:16.13.1
+#     steps:    
+#       - checkout:
+#           path: ~/auditLog
+#       - run:
+#           name: Update Yarn
+#           command: "sudo npm install -g --force yarn"
+#       - restore_cache:
+#           key: dependency-cache-{{ checksum "yarn.lock" }}
+#       - run:
+#           name: Install Dependencies
+#           command: yarn install
+#       - save_cache:
+#           key: dependency-cache-{{ checksum "yarn.lock" }}
+#           paths:
+#             - ~/auditLog/.cache
+#       - run:
+#           name: Run tests
+#           command: yarn test
+
+# Updated CI
 version: 2.1
+orbs:
+  eb: circleci/aws-elastic-beanstalk@2.0.1
+  node: circleci/node@5.0
+
 jobs:
-  build:
+  eb-create-and-deploy:
     working_directory: ~/auditLog/frontend
     docker:
-      - image: cimg/node:16.13.1
-    steps:    
+      - image: 'cimg/base:stable'
+    steps:
       - checkout:
           path: ~/auditLog
+      - eb/setup
       - run:
-          name: Update Yarn
-          command: "sudo npm install -g --force yarn"
-      - restore_cache:
-          key: dependency-cache-{{ checksum "yarn.lock" }}
-      - run:
-          name: Install Dependencies
-          command: yarn install
-      - save_cache:
-          key: dependency-cache-{{ checksum "yarn.lock" }}
-          paths:
-            - ~/auditLog/.cache
-      - run:
-          name: Run tests
-          command: yarn test
+          command: |
+            eb create auditLog-env
+            eb deploy auditLog-env
+            eb status
+          
+
+workflows:
+  test-and-build:
+    jobs:
+      - node/test:
+          app-dir: ~/auditLog/frontend
+          pkg-manager: yarn
+      - eb-create-and-deploy:
+          requires:
+            - node/test
