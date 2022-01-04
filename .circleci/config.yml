@@ -39,8 +39,7 @@ jobs:
       - eb/setup
       - run:
           command: |
-            pwd
-            ls
+            pwd & ls
           
 
 workflows:
