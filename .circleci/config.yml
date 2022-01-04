@@ -36,8 +36,6 @@ jobs:
     docker:
       - image: 'cimg/base:stable'
     steps:
-      - checkout:
-          path: ~/project
       - eb/setup
       - run:
           command: |
