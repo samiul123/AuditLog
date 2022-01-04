@@ -32,12 +32,12 @@ orbs:
 
 jobs:
   eb-create-and-deploy:
-    working_directory: ~/auditLog/frontend
+    working_directory: ~/project/frontend
     docker:
       - image: 'cimg/base:stable'
     steps:
       - checkout:
-          path: ~/auditLog
+          path: ~/project
       - eb/setup
       - run:
           command: |
@@ -50,7 +50,7 @@ workflows:
   test-and-build:
     jobs:
       - node/test:
-          app-dir: ~/auditLog/frontend
+          app-dir: ~/project/frontend
           pkg-manager: yarn
       - eb-create-and-deploy:
           requires:
