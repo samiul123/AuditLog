@@ -7,17 +7,16 @@ jobs:
     steps:    
       - checkout:
           path: ~/auditLog
-      - run: pwd
       - run:
           name: Update Yarn
           command: "sudo npm install -g --force yarn"
       - restore_cache:
-          key: dependency-cache-{{ checksum "yarn-lock.json" }}
+          key: dependency-cache-{{ checksum "yarn.lock" }}
       - run:
           name: Install Dependencies
           command: yarn install
       - save_cache:
-          key: dependency-cache-{{ checksum "yarn-lock.json" }}
+          key: dependency-cache-{{ checksum "yarn.lock" }}
           paths:
             - ~/auditLog/.cache
       - run:
