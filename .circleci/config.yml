@@ -6,7 +6,8 @@ jobs:
       - image: cimg/node:16.13.1
     steps:    
       - checkout:
-          path: ./frontend
+          path: /frontend
+      - run: pwd
       - run:
           name: Update Yarn
           command: "sudo npm install -g --force yarn"
