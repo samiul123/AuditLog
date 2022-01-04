@@ -39,7 +39,10 @@ jobs:
       - eb/setup
       - run:
           command: |
-            pwd & ls
+            eb init
+            eb create auditLog-env
+            eb deploy auditLog-env
+            eb status
           
 
 workflows:
