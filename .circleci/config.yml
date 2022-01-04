@@ -1,11 +1,12 @@
 version: 2.1
 jobs:
   build:
-    working_directory: ~/auditLog
+    working_directory: ~/auditLog/frontend
     docker:
       - image: cimg/node:16.13.1
     steps:    
-      - checkout
+      - checkout:
+          path: ~/auditLog
       - run: pwd
       - run:
           name: Update Yarn
@@ -18,7 +19,7 @@ jobs:
       - save_cache:
           key: dependency-cache-{{ checksum "yarn-lock.json" }}
           paths:
-            - ./node_modules
+            - ~/auditLog/.cache
       - run:
           name: Run tests
           command: yarn test
