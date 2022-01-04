@@ -5,10 +5,8 @@ jobs:
     docker:
       - image: cimg/node:16.13.1
     steps:    
-      - checkout
-      - run:
-          name: Go to Frontend Dir
-          command: cd frontend
+      - checkout:
+          path: ./frontend
       - run:
           name: Update Yarn
           command: "sudo npm install -g --force yarn"
