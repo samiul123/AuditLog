@@ -30,11 +30,9 @@ jobs:
             sudo apt-get install python3-pip python3-dev build-essential
             sudo pip install --upgrade setuptools
             sudo pip install awsebcli --upgrade
-            
-            
-      # - run:
-      #     name: Deploying
-      #     command: eb deploy Auditlog-env
+      - run:
+          name: Deploying
+          command: eb deploy Auditlog-env
 
 # Updated CI
 # version: 2.1
