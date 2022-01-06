@@ -1,0 +1,9 @@
+branch-defaults:
+  master:
+    environment: AuditLog-env
+global:
+  application_name: AuditLog
+  default_ec2_keyname: e-4yufutm3pd
+  default_platform: Node.js 14 running on 64bit Amazon Linux 2
+  default_region: ap-southeast-1
+  sc: git
