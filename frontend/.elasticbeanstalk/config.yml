@@ -1,7 +1,5 @@
-branch-defaults:
-  master:
-    environment: Auditlog-env
 global:
+  environment: Auditlog-env
   application_name: AuditLog
   default_ec2_keyname: e-4yufutm3pd
   default_platform: Node.js
