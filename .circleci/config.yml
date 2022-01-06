@@ -32,7 +32,6 @@ orbs:
 
 jobs:
   eb-create-and-deploy:
-    context: auditLog
     working_directory: ~/project/frontend
     docker:
       - image: 'cimg/base:stable'
@@ -40,9 +39,9 @@ jobs:
       - eb/setup
       - run:
           command: |
-            eb deploy AuditLog-env
+            eb init -p node.js
+            eb deploy Auditlog-env
             eb status
-
 
 workflows:
   test-and-build:
@@ -51,5 +50,6 @@ workflows:
           app-dir: ~/project/frontend
           pkg-manager: yarn
       - eb-create-and-deploy:
+          context: auditLog
           requires:
             - node/test
