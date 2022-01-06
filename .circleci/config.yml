@@ -1,28 +1,30 @@
-#version: 2.1
-#jobs:
-#  build:
-#    working_directory: ~/auditLog/frontend
-#    docker:
-#      - image: cimg/node:16.13.1
-#    steps:
-#      - checkout:
-#          path: ~/auditLog
-#      - run:
-#          name: Update Yarn
-#          command: "sudo npm install -g --force yarn"
-#      - restore_cache:
-#          key: dependency-cache-{{ checksum "yarn.lock" }}
-#      - run:
-#          name: Install Dependencies
-#          command: yarn install
-#      - save_cache:
-#          key: dependency-cache-{{ checksum "yarn.lock" }}
-#          paths:
-#            - ~/auditLog/.cache
-#      - run:
-#          name: Run tests
-#          command: yarn test
+# Initial CI
+# version: 2.1
+# jobs:
+#   build:
+#     working_directory: ~/auditLog/frontend
+#     docker:
+#       - image: cimg/node:16.13.1
+#     steps:
+#       - checkout:
+#           path: ~/auditLog
+#       - run:
+#           name: Update Yarn
+#           command: "sudo npm install -g --force yarn"
+#       - restore_cache:
+#           key: dependency-cache-{{ checksum "yarn.lock" }}
+#       - run:
+#           name: Install Dependencies
+#           command: yarn install
+#       - save_cache:
+#           key: dependency-cache-{{ checksum "yarn.lock" }}
+#           paths:
+#             - ~/auditLog/.cache
+#       - run:
+#           name: Run tests
+#           command: yarn test
 
+# Updated CI
 version: 2.1
 orbs:
   eb: circleci/aws-elastic-beanstalk@2.0.1
