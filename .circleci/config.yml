@@ -40,9 +40,9 @@ jobs:
       - run:
           command: |
             eb init -p node.js
-            eb list
+            # eb list
             # eb deploy Auditlog-env
-            # eb status
+            eb status
 
 workflows:
   test-and-build:
