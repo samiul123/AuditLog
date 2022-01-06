@@ -42,6 +42,7 @@ jobs:
             eb init -p node.js
             # eb list
             # eb deploy Auditlog-env
+            eb use Auditlog-env
             eb status
 
 workflows:
