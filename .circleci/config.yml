@@ -1,55 +1,70 @@
 # Initial CI
-# version: 2.1
-# jobs:
-#   build:
-#     working_directory: ~/auditLog/frontend
-#     docker:
-#       - image: cimg/node:16.13.1
-#     steps:
-#       - checkout:
-#           path: ~/auditLog
-#       - run:
-#           name: Update Yarn
-#           command: "sudo npm install -g --force yarn"
-#       - restore_cache:
-#           key: dependency-cache-{{ checksum "yarn.lock" }}
-#       - run:
-#           name: Install Dependencies
-#           command: yarn install
-#       - save_cache:
-#           key: dependency-cache-{{ checksum "yarn.lock" }}
-#           paths:
-#             - ~/auditLog/.cache
-#       - run:
-#           name: Run tests
-#           command: yarn test
+version: 2.1
+jobs:
+  build:
+    working_directory: ~/auditLog/frontend
+    docker:
+      - image: cimg/node:16.13.1
+    steps:
+      - checkout:
+          path: ~/auditLog
+      - run:
+          name: Update Yarn
+          command: "sudo npm install -g --force yarn"
+      - restore_cache:
+          key: dependency-cache-{{ checksum "yarn.lock" }}
+      - run:
+          name: Install Dependencies
+          command: yarn install
+      - save_cache:
+          key: dependency-cache-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/auditLog/.cache
+      - run:
+          name: Run tests
+          command: yarn test
+      - run:
+          name: Installing deployment dependencies
+          command: |
+            sudo apt-get -y -q update
+            sudo apt-get install python3-pip python3-dev build-essential
+            sudo pip install --upgrade setuptools
+            sudo pip install awsebcli --upgrade
+      - run:
+          name: Deploying
+          command: |
+            eb init --region us-east-2 -p node.js AuditLog
+            eb appversion -a AuditLog -c
+            eb deploy Auditlog-env-1
 
 # Updated CI
-version: 2.1
-orbs:
-  eb: circleci/aws-elastic-beanstalk@2.0.1
-  node: circleci/node@5.0
+# version: 2.1
+# orbs:
+#   eb: circleci/aws-elastic-beanstalk@2.0.1
+#   node: circleci/node@5.0
 
-jobs:
-  eb-create-and-deploy:
-    working_directory: ~/project/frontend
-    docker:
-      - image: 'cimg/base:stable'
-    steps:
-      - eb/setup
-      - run:
-          command: |
-            eb init -p node.js
-            eb deploy Auditlog-env
-            eb status
+# jobs:
+#   eb-create-and-deploy:
+#     working_directory: ~/project/frontend
+#     docker:
+#       - image: 'cimg/base:stable'
+#     steps:
+#       - eb/setup
+#       - run:
+#           command: |
+#             eb init -p node.js
+#             # eb list
+#             # eb deploy Auditlog-env
+#             eb use Auditlog-env
+#             eb status
 
-workflows:
-  test-and-build:
-    jobs:
-      - node/test:
-          app-dir: ~/project/frontend
-          pkg-manager: yarn
-      - eb-create-and-deploy:
-          context: auditLog
-          requires:
-            - node/test
+# workflows:
+#   test-and-build:
+#     jobs:
+#       - node/test:
+#           app-dir: ~/project/frontend
+#           pkg-manager: yarn
+#       - eb-create-and-deploy:
+#           context: auditLog
+#           requires:
+#             - node/test
