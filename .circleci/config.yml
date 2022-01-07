@@ -33,7 +33,7 @@ jobs:
       - run:
           name: Deploying
           command: |
-            eb init --region us-east-2 -p node.js AuditLog
+            eb init --region us-east-2 -p "Node.js 14 running on 64bit Amazon Linux 2" AuditLog
             eb appversion -a AuditLog -c
             eb deploy Auditlog-env-1
 
