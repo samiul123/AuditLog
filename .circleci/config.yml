@@ -34,7 +34,7 @@ jobs:
           name: Deploying
           command: |
             eb init --region us-east-2 -p node.js AuditLog
-            eb appversion -a AuditLog -c -l v0.1.0
+            eb appversion -a AuditLog -c
             eb deploy Auditlog-env-1
 
 # Updated CI
