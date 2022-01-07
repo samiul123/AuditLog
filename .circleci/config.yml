@@ -32,7 +32,9 @@ jobs:
             sudo pip install awsebcli --upgrade
       - run:
           name: Deploying
-          command: eb deploy Auditlog-env
+          command: |
+            eb init --region us-east-2 -p node.js AuditLog
+            eb deploy Auditlog-env
 
 # Updated CI
 # version: 2.1
