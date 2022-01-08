@@ -9,8 +9,9 @@ function App() {
     return (
         <BrowserRouter>
             <Suspense fallback={
-                <CircularProgress
-                    sx={{display: "flex", justifyContent: "center", alignItems: "center", height: "100vh"}}/>
+                <Box sx={{display: "flex", justifyContent: "center", alignItems: "center", height: "100vh"}}>
+                    <CircularProgress/>
+                </Box>
             }>
                 <Route path='/login' name='Login' component={Login}/>
                 <Route path='/' component={Layout}/>
