@@ -1,13 +1,13 @@
 import {lazy} from "react";
 
-const Login = lazy(() => import('../component/login/Login'))
+const AuditLog = lazy(() => import('../component/auditLog/AuditLog'))
 
 const appRoutes = [
     {
-        path: '/login',
-        name: 'Login',
+        path: '/auditLog',
+        name: 'AuditLog',
         exact: true,
-        component: Login
+        component: AuditLog
     }
 ]
 

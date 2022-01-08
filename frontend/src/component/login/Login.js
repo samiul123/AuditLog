@@ -1,7 +1,9 @@
 import React, {useState} from "react";
 import {Box, Button, Container, TextField} from "@mui/material";
+import {useHistory} from 'react-router-dom';
 
 const Login = (props) => {
+    let history = useHistory();
     const [userName, setUserName] = useState("");
 
     const handleChange = (event) => setUserName(event.target.value)
@@ -9,6 +11,7 @@ const Login = (props) => {
     const handleSubmit = (event) => {
         const {name, value} = event.currentTarget[0]
         localStorage.setItem(name, value)
+        history.push("/auditLog")
     }
 
     return (
@@ -26,15 +29,15 @@ const Login = (props) => {
                     value={userName}
                     onChange={handleChange}
                 />
+                <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    sx={{mt: 3, mb: 2}}
+                >
+                    Sign In
+                </Button>
             </Box>
-            <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{mt: 3, mb: 2}}
-            >
-                Sign In
-            </Button>
         </Container>
     )
 }
