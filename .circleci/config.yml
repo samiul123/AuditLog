@@ -1,7 +1,7 @@
 # Test and deploy in same job
 version: 2.1
 jobs:
-  build:
+  test-and-deploy:
     working_directory: ~/auditLog/frontend
     docker:
       - image: cimg/node:16.13.1
@@ -36,6 +36,15 @@ jobs:
             eb init --region us-east-2 -p "Node.js 14 running on 64bit Amazon Linux 2" AuditLog
             eb appversion -a AuditLog -c
             eb deploy Auditlog-env-1
+
+workflows:
+  test-and-deploy:
+    jobs:
+      - test-and-deploy:
+          filters:
+            branches:
+              only:
+                main
 
 # Test and deploy in different jobs
 # version: 2.1
